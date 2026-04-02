@@ -102,7 +102,7 @@ int main()
     printf("\n====================================\n");
     printf("[ 1턴 종료 후 현재 상태 ]\n");
     printf("플레이어(%c) - HP: %d, MP: %d\n", player_name, p_hp, p_mp);
-    printf("몬스터 - HP: %d, 공격력: %.2f\n", m_hp);
+    printf("몬스터 - HP: %d, 공격력: %.2f\n", m_hp, m_atk);
     printf("====================================\n");
 
     return 0;
