@@ -91,7 +91,7 @@
      * **해결:** AI 질문과 구글링을 통해 실수를 정수형 HP에서 빼기 위해 (int)로 형변환하여 해결함.
      
 ### **📁 증빙 자료:**
-  * [1차_AI협업캡처.pdf 첨부 완료] (첨부 후 링크)
+  * [1차_AI협업캡처.pdf 첨부 완료] (https://github.com/MJU-C-2026-1/c-homework-2601-kdhwise1124-crypto/blob/main/1%EC%B0%A8%20AI%20%ED%98%91%EC%97%85%20%EC%BA%A1%EC%B3%90%2060231916%20%EA%B9%80%EB%8D%95%ED%9A%8C.pdf)
   * [1차과제_실행결과.jpg]
 
 <br>
