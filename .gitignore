@@ -3,6 +3,7 @@
 *.o
 *.out
 *.app
+*.c
 
 # Dev C++ 전용 임시 파일
 *.layout
