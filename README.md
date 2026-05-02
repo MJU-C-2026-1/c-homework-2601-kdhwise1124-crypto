@@ -115,7 +115,7 @@
      * **해결:** : 중첩 조건문과 P_mp와 mp_use에 관계 연산자를 사용함으로서 해당 문제를 해결, 만약 사용하는 마나가 현재 마나보다 많을 경우 마나를 사용하지 않은 일반공격을 자동으로 진행하도록 만들어서 해결.
      
 ### **📁 증빙 자료:**
-  * [2차_AI협업캡처.pdf 첨부 완료] 
+  * [2차_AI협업캡처.pdf 첨부 완료] https://github.com/MJU-C-2026-1/c-homework-2601-kdhwise1124-crypto/blob/main/2%EC%B0%A8%20AI%20%ED%98%91%EC%97%85%20%EC%BA%A1%EC%B3%90%2060231916%20%EA%B9%80%EB%8D%95%ED%9A%8C.pdf
   * [2차과제_실행결과.jpg] https://github.com/MJU-C-2026-1/c-homework-2601-kdhwise1124-crypto/blob/main/2%EC%B0%A8%20%EA%B3%BC%EC%A0%9C%20%EC%8B%A4%ED%96%89%20%EA%B2%B0%EA%B3%BC.jpg
 <br>
 
