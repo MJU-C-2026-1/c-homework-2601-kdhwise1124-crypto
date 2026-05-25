@@ -12,7 +12,7 @@
 #include <stdlib.h> 
 
 //전역변수 선언
-char palyer_name;
+char player_name;
 int p_hp, p_mp;          
 double p_atk, p_def;
 
@@ -24,7 +24,7 @@ int stage = 1;       // 현재 진행 중인 스테이지 번호 (전역 변수)
 // 함수 선언
 void apply_job_stats(int job_choice);                           
 int calculate_damage(double attacker_atk, double defender_def, int mp_used); 
-void print_status(const char* status_title);                   
+void print_status();                   
 void spawn_monster();      // stage에 맞춰 몬스터를 강화하는 함수
 void give_reward();         // 몬스터 처치 시 보상을 지급하는 함수
 
@@ -47,6 +47,7 @@ int main()
         printf("선택: ");
         scanf(" %d", &menu_choice);
 
+        //메인 메뉴 루프(전투 종료 후 복귀)
         if(menu_choice==2)
         {
              printf("\n프로그램을 종료합니다. 플레이해주셔서 감사합니다!\n");
@@ -71,18 +72,88 @@ int main()
             printf("계속하려면 엔터를 누르세요...");
             getchar(); getchar();
 
+            //플레이어가 살아있는 한 스테이지를 계속 진행하는 루프
             while(p_hp>0)
             {
-                spawn_monster(); // 현재 스테이지에 맞는 몬스터 생성
+                spawn_monster(); // 현재 스테이지의 몬스터 생성
                 
                 print_status();
                 printf("전투를 시작하려면 엔터를 누르세요...");
                 getchar();
+
+                while (p_hp > 0 && m_hp > 0) 
+                {
+                    int action_choice;
+                    int mp_use = 0;
+                    int final_damage = 0;
+
+                    printf("\n▶ %c의 턴! 무엇을 하시겠습니까?\n", player_name);
+                    printf("1. 공격 | 2. 회복 | 3. 스킬\n선택: ");
+                    scanf("%d", &action_choice);
+
+                    if (action_choice == 1) {
+                        final_damage = calculate_damage(p_atk, m_def, 0);
+                        m_hp -= final_damage;
+                        printf("\n▶ 결과: 몬스터에게 %d의 데미지를 입혔습니다!\n", final_damage);
+                    } 
+                    else if (action_choice == 2) {
+                        p_hp += 15; 
+                        printf("\n▶ 결과: 체력을 15만큼 회복했습니다! (현재 HP: %d)\n", p_hp);
+                    } 
+                    else if (action_choice == 3) {
+                        printf("사용할 마나의 양을 입력하세요 : ");
+                        scanf("%d", &mp_use);
+
+                        if (p_mp >= mp_use) {
+                            p_mp -= mp_use; 
+                            final_damage = calculate_damage(p_atk, m_def, mp_use);
+                            m_hp -= final_damage;
+                            printf("\n▶ 결과: 마나 %d를 소모하여 몬스터에게 %d의 데미지를 입혔습니다!\n", mp_use, final_damage);
+                        } else {
+                            final_damage = calculate_damage(p_atk, m_def, 0);
+                            m_hp -= final_damage;
+                            printf("\n▶ [발동 실패] 마나가 부족합니다! (현재 MP: %d / 입력 MP: %d)\n", p_mp, mp_use);
+                            printf("일반 공격으로 전환하여 %d의 데미지를 입혔습니다!\n", final_damage);
+                        }
+                    } 
+                    else {
+                        printf("\n▶ 당황해서 아무것도 하지 못했습니다...\n");
+                    }
+
+                    // 몬스터 사망 체크 -> 전투 종료+보상으로 이동
+                    if (m_hp <= 0) break;
+
+                    // 몬스터의 턴
+                    printf("\n------------------------------------\n");
+                    printf("▶ 몬스터의 턴! %c(을)를 공격합니다!\n", player_name);
+                    final_damage = calculate_damage(m_atk, p_def, 0);
+                    p_hp -= final_damage;
+                    printf("몬스터의 공격! 플레이어가 %d의 데미지를 받았습니다!\n", final_damage);
+                    printf("------------------------------------\n");
+
+                    // 플레이어 사망 체크 -> 전투 종료
+                    if (p_hp <= 0) break;
+
+                    print_status("현재 턴 종료 상태");
+                    printf("엔터를 눌러 다음 턴을 진행합니다...");
+                    getchar(); getchar();
+                }
+
+                //전투 종료 후 판정
+                if (p_hp <= 0) {
+                    printf("\n[패배] %c님이 쓰러졌습니다. 총 %d스테이지까지 도달했습니다.\n", player_name, stage);
+                    printf("메인화면으로 돌아갑니다. 엔터를 누르세요...");
+                    getchar(); getchar();
+                    break; // 메인 메뉴로 이동
+                }
+
+                if (m_hp <= 0) {
+                    give_reward(); // 보상 시스템 /스테이지 증가
+                    printf("\n다음 스테이지 진입을 위해 엔터를 누르세요...");
+                    getchar(); getchar();
+                }              
             }
-
-
         }
-
     }
 }
 
