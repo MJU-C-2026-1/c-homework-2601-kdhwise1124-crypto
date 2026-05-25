@@ -91,32 +91,39 @@ int main()
                     printf("1. 공격 | 2. 회복 | 3. 스킬\n선택: ");
                     scanf("%d", &action_choice);
 
-                    if (action_choice == 1) {
+                    if (action_choice == 1) 
+                    {
                         final_damage = calculate_damage(p_atk, m_def, 0);
                         m_hp -= final_damage;
                         printf("\n▶ 결과: 몬스터에게 %d의 데미지를 입혔습니다!\n", final_damage);
                     } 
-                    else if (action_choice == 2) {
+                    else if (action_choice == 2) 
+                    {
                         p_hp += 15; 
                         printf("\n▶ 결과: 체력을 15만큼 회복했습니다! (현재 HP: %d)\n", p_hp);
                     } 
-                    else if (action_choice == 3) {
+                    else if (action_choice == 3) 
+                    {
                         printf("사용할 마나의 양을 입력하세요 : ");
                         scanf("%d", &mp_use);
 
-                        if (p_mp >= mp_use) {
+                        if (p_mp >= mp_use) 
+                        {
                             p_mp -= mp_use; 
                             final_damage = calculate_damage(p_atk, m_def, mp_use);
                             m_hp -= final_damage;
                             printf("\n▶ 결과: 마나 %d를 소모하여 몬스터에게 %d의 데미지를 입혔습니다!\n", mp_use, final_damage);
-                        } else {
+                        } 
+                        else 
+                        {
                             final_damage = calculate_damage(p_atk, m_def, 0);
                             m_hp -= final_damage;
                             printf("\n▶ [발동 실패] 마나가 부족합니다! (현재 MP: %d / 입력 MP: %d)\n", p_mp, mp_use);
                             printf("일반 공격으로 전환하여 %d의 데미지를 입혔습니다!\n", final_damage);
                         }
                     } 
-                    else {
+                    else 
+                    {
                         printf("\n▶ 당황해서 아무것도 하지 못했습니다...\n");
                     }
 
@@ -140,14 +147,16 @@ int main()
                 }
 
                 //전투 종료 후 판정
-                if (p_hp <= 0) {
+                if (p_hp <= 0) 
+                {
                     printf("\n[패배] %c님이 쓰러졌습니다. 총 %d스테이지까지 도달했습니다.\n", player_name, stage);
                     printf("메인화면으로 돌아갑니다. 엔터를 누르세요...");
                     getchar(); getchar();
                     break; // 메인 메뉴로 이동
                 }
 
-                if (m_hp <= 0) {
+                if (m_hp <= 0) 
+                {
                     give_reward(); // 보상 시스템 /스테이지 증가
                     printf("\n다음 스테이지 진입을 위해 엔터를 누르세요...");
                     getchar(); getchar();
@@ -157,8 +166,11 @@ int main()
     }
 }
 
+
+
 // 함수
 
+//플레이어의 직업에 따른 스탯 부여 
 void apply_job_stats(int job_choice) 
 {
     switch (job_choice) 
