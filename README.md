@@ -130,11 +130,11 @@
  1. **내용 1**
     * **프롬프트 요약:** 기존 작성 코드를 주어진 조건에 따라 함수화하는 것을 요청함.
     * **적용 내용:** 조건에 맞는 코드를 함수화 진행
-    1. switch-case문을 이용한 직업 선택 코드를 apply_job_stats(int job_choice)라는 함수로 선언
-    2. 플에이어의 공격력과 몬스터의 방어력, 소모한 마나에 따른 공격력 강화 계산식을 종합한 코드를 calculate_damage(double attacker_atk, double defender_def, int mp_used)라는 함수로 선언, 결과값을 반환하여 최종 공격력을 산출.
-    3. 플레이어의 이름과 직업에 따른 스탯을 출력하는 함수를 print_status()라는 함수로 선언.
-    4. 스테이지에 비례하여 강해지는 몬스터를 구현한 코드를 spawn_monster()라는 함수로 선언.
-    5. 보상 시스템+스테이지 증가 로직을 구현한 코드를 give_reward()라는 함수로 선언.
+    1. switch-case문을 이용한 직업 선택 코드를 void apply_job_stats(int job_choice)라는 함수로 선언
+    2. 플에이어의 공격력과 몬스터의 방어력, 소모한 마나에 따른 공격력 강화 계산식을 종합한 코드를 int calculate_damage(double attacker_atk, double defender_def, int mp_used)라는 함수로 선언, 결과값을 반환하여 최종 공격력을 산출.
+    3. 플레이어의 이름과 직업에 따른 스탯을 출력하는 함수를 void print_status()라는 함수로 선언.
+    4. 스테이지에 비례하여 강해지는 몬스터를 구현한 코드를 void spawn_monster()라는 함수로 선언.
+    5. 보상 시스템+스테이지 증가 로직을 구현한 코드를 void give_reward()라는 함수로 선언.
     
 ### **🛠️ Troubleshooting & 기술 회고:**
   1. **문제 1:** 플레이어의 공격력이 몬스터의 체력보다 높을 떄, 몬스터 체력의 표기가 음수가 됨.

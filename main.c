@@ -75,7 +75,7 @@ int main()
             {
                 spawn_monster(); // 현재 스테이지에 맞는 몬스터 생성
                 
-                print_status("전투 초기 상태");
+                print_status();
                 printf("전투를 시작하려면 엔터를 누르세요...");
                 getchar();
             }
@@ -84,4 +84,81 @@ int main()
         }
 
     }
+}
+
+// 함수
+
+void apply_job_stats(int job_choice) 
+{
+    switch (job_choice) 
+    {
+        case 1: p_hp = 120; p_mp = 30; p_atk = 15.0; p_def = 0.2; break;
+        case 2: p_hp = 80; p_mp = 80; p_atk = 25.0; p_def = 0.05; break;
+        case 3: p_hp = 100; p_mp = 50; p_atk = 20.0; p_def = 0.1; break;
+        default:
+            p_hp = 100; p_mp = 50; p_atk = 20.0; p_def = 0.1;
+            printf("\n잘못된 선택입니다. 기본능력치를 가진 [모험가]가 선택됩니다.\n");
+            break;
+    }
+}
+
+// 데미지 계산식
+int calculate_damage(double attacker_atk, double defender_def, int mp_used) 
+{
+    int calculated_damage;
+    if (mp_used > 0) 
+    {
+        double enhanced_atk = attacker_atk + (attacker_atk * (0.01 * mp_used));
+        calculated_damage = (int)(enhanced_atk - (attacker_atk * defender_def));
+    }
+    else 
+    {
+        calculated_damage = (int)(attacker_atk - (attacker_atk * defender_def));
+    }
+    return calculated_damage; 
+}
+
+//플레이어 이름과 직업에 따른 스탯 출력
+void print_status() 
+{
+    printf("\n====================================\n");
+    printf("[ STAGE %d ]\n", stage);
+    printf("플레이어(%c) - HP: %d, MP: %d\n", player_name, p_hp, p_mp);
+    printf("몬스터 - HP: %d, 공격력: %.2f\n", (m_hp < 0) ? 0 : m_hp, m_atk);
+    printf("====================================\n");
+}
+
+// 스테이지에 비례하여 강해지는 몬스터
+void spawn_monster() 
+{
+    // 스테이지가 올라갈 때마다 체력은 10씩, 공격력은 2씩, 방어력은 1%씩 상승
+    m_hp = 55 + (stage * 10); 
+    m_atk = 11.0 + (stage * 2.0);
+    m_def = 0.04 + (stage * 0.01);
+    
+    // 몬스터 방어력을 최대 40%로 제한
+    if (m_def > 0.40) m_def = 0.40; 
+}
+
+// 몬스터 처치 보상 및 스테이지 레벨업 처리 (전역변수 stage 변경 포함)
+void give_reward() 
+{
+    printf("\n====================================\n");
+    printf("★☆★ 축하합니다! STAGE %d 클리어! ★☆★\n", stage);
+    printf("====================================\n");
+    printf("[ 전리품 획득 ] 몬스터를 물리치고 강해졌습니다!\n");
+    
+    // 영구 능력치 상승 보상
+    p_atk += 3.0;
+    p_def += 0.01;
+    printf("-> 공격력 3.0 증가! 현재 공격력: %.1f\n", p_atk);
+    printf("-> 방어력 1%% 증가! 현재 방어력: %.1f%%\n", p_def * 100);
+
+    // 승리 보너스 (체력 40, 마나 20 회복)
+    p_hp += 40;
+    p_mp += 20;
+    printf("-> 승리 보너스로 HP 40, MP 30을 회복했습니다.\n");
+    
+    // 다음 스테이지로 이동
+    stage++; 
 }
