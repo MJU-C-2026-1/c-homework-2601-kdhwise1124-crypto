@@ -258,7 +258,7 @@ void analyze_combat_records(int *arr, int size)
     printf("      [전투 종료] 데미지 분석 리포트     \n");
     printf("=======================================\n");
     
-    printf("▶ [인덱스 순회] 기록된 초반 5회 타격 데미지:\n");
+    printf("▶ 기록된 초반 5회 타격 데미지:\n");
     for (int i = 0; i < size; i++) 
 	{
         printf("  - %d회차 가한 데미지: %d\n", i + 1, arr[i]); 
